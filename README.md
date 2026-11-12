@@ -23,7 +23,7 @@ But can't work on `Vec<String>`:
 
 ```rust,compile_fail
 let vec: Vec<String> = vec!["a".into(), "b".into(), "c".into(), "d".into(), "e".into()];
-let [a, b, .., e] = vec else { panic!() };
+let [a, b, .., e] = vec else { panic!() }; // compile fail
 ```
 
 You can use this crate:
