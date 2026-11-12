@@ -1,5 +1,7 @@
 Some helper functions, owned matching seq values
 
+Although this cannot solve the nested owned patterns, it is still good
+
 Examples
 -------------------------------------------------------------------------------
 Slice patterns can used on `&Vec<String>`:
