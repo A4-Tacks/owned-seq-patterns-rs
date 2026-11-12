@@ -10,8 +10,8 @@ use core::iter::FusedIterator;
 ///
 /// # Panics
 ///
-/// Panics if `self.iter().len() != self.into_iter().len()`.
-/// Panics if incorrect [`ExactSizeIterator`] implement.
+/// - Panics if `self.iter().len() != self.into_iter().len()`.
+/// - Panics if incorrect [`ExactSizeIterator`] implement.
 #[allow(clippy::type_complexity)]
 pub trait OwnedSeqPatternHelper: IntoIterator + Sized
 where Self::IntoIter: FusedIterator + ExactSizeIterator + DoubleEndedIterator,
