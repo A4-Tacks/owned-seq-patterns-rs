@@ -23,4 +23,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: cargo test
-      - run: cargo check
+      - run: cargo clippy -- -D warnings
+
+  msrv:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - features: ''
+    steps:
+      - uses: actions/checkout@v4
+      - run: rm -v Cargo.lock
+      - run: |
+          ver=$(awk '/rust-version/{gsub(/"/,"");print$3}' Cargo.toml)
+          cargo +$ver build   ${{ matrix.features }} --no-fail-fast

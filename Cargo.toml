@@ -2,6 +2,7 @@
 name = "owned-seq-patterns"
 version = "0.1.1"
 edition = "2021"
+rust-version = "1.63"
 
 authors = ["A4-Tacks <wdsjxhno1001@163.com>"]
 keywords = ["vec", "deref", "pattern", "owned"]
