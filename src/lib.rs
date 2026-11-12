@@ -72,3 +72,18 @@ where Self::IntoIter: ExactSizeIterator + DoubleEndedIterator,
       for<'a> <&'a Self as IntoIterator>::IntoIter: ExactSizeIterator,
 {
 }
+
+#[test]
+#[allow(unused_variables)]
+fn works() {
+    let arr = [1, 2, 3];
+    assert!(matches!(arr.heads(), Ok([a, b, c])));
+    assert!(matches!(arr.heads(), Ok([a, b])));
+    assert!(matches!(arr.heads(), Ok([a])));
+    assert!(matches!(arr.heads(), Ok([])));
+
+    assert!(! matches!(arr.heads(), Ok([a, b, c, d])));
+
+    assert!(matches!(arr.heads::<4>(), Err([1, 2, 3])));
+    assert!(matches!(arr.heads::<5>(), Err([1, 2, 3])));
+}
