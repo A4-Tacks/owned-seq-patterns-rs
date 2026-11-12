@@ -1,11 +1,11 @@
 [package]
 name = "owned-seq-patterns"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 rust-version = "1.63"
 
 authors = ["A4-Tacks <wdsjxhno1001@163.com>"]
-keywords = ["vec", "deref", "pattern", "owned"]
+keywords = ["vec", "deref", "pattern", "owned", "slice"]
 categories = ["no-std", "no-std::no-alloc", "rust-patterns"]
 description = "Some helper functions, owned matching seq values, like if let [a, b, ..] = vec![x,y,z]"
 
