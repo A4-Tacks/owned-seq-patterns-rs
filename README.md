@@ -2,6 +2,8 @@ Some helper functions, owned matching seq values
 
 Although this cannot solve the nested owned patterns, it is still good
 
+Due to generalization, this applies to most collections, such as `VecDeque` `BTreeSet`
+
 Examples
 -------------------------------------------------------------------------------
 Slice patterns can used on `&Vec<String>`:

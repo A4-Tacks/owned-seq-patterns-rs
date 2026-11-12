@@ -2,7 +2,7 @@
 #![doc = include_str!("../README.md")]
 #![warn(clippy::pedantic)]
 
-use core::iter::Fuse;
+use core::iter::FusedIterator;
 
 /// Helper extension functions.
 ///
@@ -14,7 +14,7 @@ use core::iter::Fuse;
 /// Panics if incorrect [`ExactSizeIterator`] implement.
 #[allow(clippy::type_complexity)]
 pub trait OwnedSeqPatternHelper: IntoIterator + Sized
-where Self::IntoIter: ExactSizeIterator + DoubleEndedIterator,
+where Self::IntoIter: FusedIterator + ExactSizeIterator + DoubleEndedIterator,
       for<'a> &'a Self: IntoIterator,
       for<'a> <&'a Self as IntoIterator>::IntoIter: ExactSizeIterator,
 {
@@ -24,7 +24,7 @@ where Self::IntoIter: ExactSizeIterator + DoubleEndedIterator,
     ///
     /// This function will return an error if `self.len() < H + T`.
     fn heads_tails_with<const H: usize, const T: usize>(self) -> Result<
-        ([Self::Item; H], Fuse<Self::IntoIter>, [Self::Item; T]),
+        ([Self::Item; H], Self::IntoIter, [Self::Item; T]),
         Self,
     > {
         let len = (&self).into_iter().len();
@@ -33,7 +33,7 @@ where Self::IntoIter: ExactSizeIterator + DoubleEndedIterator,
             return Err(self);
         }
 
-        let mut iter = self.into_iter().fuse();
+        let mut iter = self.into_iter();
         assert_eq!(iter.len(), len, "mismatch ref/owned iter len implement {len}/{}", iter.len());
 
         let a = core::array::from_fn(|_| iter.next().unwrap());
@@ -61,7 +61,7 @@ where Self::IntoIter: ExactSizeIterator + DoubleEndedIterator,
     ///
     /// This function will return an error if `self.len() < H`.
     fn heads_with<const H: usize>(self) -> Result<
-        ([Self::Item; H], Fuse<Self::IntoIter>),
+        ([Self::Item; H], Self::IntoIter),
         Self,
     > {
         self.heads_tails_with::<H, 0>()
@@ -74,7 +74,7 @@ where Self::IntoIter: ExactSizeIterator + DoubleEndedIterator,
     ///
     /// This function will return an error if `self.len() < T`.
     fn tails_with<const T: usize>(self) -> Result<
-        (Fuse<Self::IntoIter>, [Self::Item; T]),
+        (Self::IntoIter, [Self::Item; T]),
         Self,
     > {
         self.heads_tails_with::<0, T>()
@@ -107,7 +107,7 @@ where Self::IntoIter: ExactSizeIterator + DoubleEndedIterator,
 }
 
 impl<T: IntoIterator> OwnedSeqPatternHelper for T
-where Self::IntoIter: ExactSizeIterator + DoubleEndedIterator,
+where Self::IntoIter: FusedIterator + ExactSizeIterator + DoubleEndedIterator,
       for<'a> &'a Self: IntoIterator,
       for<'a> <&'a Self as IntoIterator>::IntoIter: ExactSizeIterator,
 {
