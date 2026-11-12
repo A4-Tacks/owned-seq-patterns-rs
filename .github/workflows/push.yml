@@ -36,4 +36,4 @@ jobs:
       - run: rm -v Cargo.lock
       - run: |
           ver=$(awk '/rust-version/{gsub(/"/,"");print$3}' Cargo.toml)
-          cargo +$ver build   ${{ matrix.features }} --no-fail-fast
+          cargo +$ver build   ${{ matrix.features }}
