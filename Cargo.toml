@@ -1,0 +1,16 @@
+[package]
+name = "owned-seq-patterns"
+version = "0.1.0"
+edition = "2021"
+
+authors = ["A4-Tacks <wdsjxhno1001@163.com>"]
+keywords = ["vec", "deref", "pattern", "owned"]
+categories = ["no-std", "no-std::no-alloc", "rust-patterns"]
+description = "Some helper functions, owned matching seq values, like if let [a, b, ..] = vec![x,y,z]"
+
+license = "MIT"
+repository = "https://github.com/A4-Tacks/owned-seq-patterns-rs"
+
+readme = "README.md"
+
+[dependencies]
